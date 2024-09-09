@@ -16,10 +16,41 @@ export function change(amount) {
 }
 
 // Write your first then lower case function here
+export function firstThenLowerCase(a, p) {
+  return a.find(p)?.toLowerCase();
+}
 
 // Write your powers generator here
+export function* powersGenerator({ofBase, upTo}) {
+  let exponent = 0;
+  while (true) {
+    let limitTest = ofBase ** exponent;
+    if (limitTest > upTo) break;
+    yield limitTest
+    exponent += 1
+  }
+}
 
 // Write your say function here
+export function say(word = null) {
+  let createdString = [];
+
+  function nextWord(newWord = null) {
+    if (newWord === "") {
+      createdString.push("");  // Add a space instead of an empty string
+      return nextWord;
+    }
+
+    if (newWord) {
+      createdString.push(newWord);
+      return nextWord;
+    } else {
+      return createdString.join(" ");  // Join with space
+    }
+  }
+
+  return nextWord(word);  // Start the chain with the initial word
+}
 
 // Write your line count function here
 
