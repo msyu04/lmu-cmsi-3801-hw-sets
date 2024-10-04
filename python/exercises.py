@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from collections.abc import Callable
 from typing import Callable, Optional
+import os
 
 
 def change(amount: int) -> dict[int, int]:
@@ -53,6 +54,19 @@ def say(word=None):
 
 
 # Write your line count function here
+def meaningful_line_count(file_path):
+    if not os.path.exists(file_path):
+        raise FileNotFoundError("No such file")
+    
+    valid_lines = 0
+    with open(file_path, "r", encoding="utf-8") as opened_file:
+    # without encoding -> UnicodeDecodeError: 'charmap' codec can't decode byte 0x81 in position 16: character maps to <undefined>
+    # solution found at: https://stackoverflow.com/questions/9233027/unicodedecodeerror-charmap-codec-cant-decode-byte-x-in-position-y-character
+        for line in opened_file:
+            stripped_line = line.strip() # remove leading and trailing whitespace
+            if stripped_line and not stripped_line.startswith("#"): # check if not empty and not starting with "#"
+                valid_lines += 1
 
+    return valid_lines
 
 # Write your Quaternion class here
